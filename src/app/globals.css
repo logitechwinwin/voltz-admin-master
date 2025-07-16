@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f8f8fb;
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+} */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+    /* transform: rotate(-180deg); */
+    /* transform: translate(500px, 18px);   */
+  }
+  to {
+    opacity: 1;
+    /* transform: rotate(0deg); */
+    /* transform: translate(0);   */
+    transform: scale(1);
+  }
+}
+
+.image-top-right {
+  width: 340px;
+  height: 340px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* animation: fadeIn 1s ease-in-out; */
+}
+
+.image-center {
+  width: 270px;
+  height: 270px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.image-bottom-left {
+  width: 340px;
+  height: 340px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  /* animation: fadeIn 1s ease-in-out; */
+}
+
+.ql-editor {
+  min-height: 150px !important;
+}
