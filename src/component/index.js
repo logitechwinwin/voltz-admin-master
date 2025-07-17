@@ -6,6 +6,7 @@ import AuthButton from "./AuthButton/AuthButton";
 import AutoComplete from "./AutoComplete/AutoComplete";
 import BannerPicker from "./BannerPicker/BannerPicker";
 import BannerProfilePicker from "./BannerProfilePicker/BannerProfilePicker";
+import EditBanner from "./BannerProfilePicker/BannerProfilePicker";
 import BarChartVolunteer from "./BarChart/BarChart";
 import VoltzModal from "./BuyVoltzModal/BuyVoltzModal";
 import CardButton from "./CardButton/CardButton";
@@ -101,6 +102,8 @@ export {
   CommunityModal,
   AutoComplete,
   BannerPicker,
+  BannerProfilePicker,
+  EditBanner,
   BarChartVolunteer,
   FetchAllEvents,
   BasicMenu,

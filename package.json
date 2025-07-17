@@ -25,6 +25,7 @@
     "@reduxjs/toolkit": "^2.2.4",
     "axios": "^1.7.2",
     "country-state-city": "^3.2.1",
+    "emoji-mart": "^5.2",
     "firebase": "^10.13.2",
     "formik": "^2.4.6",
     "framer-motion": "^11.5.5",
