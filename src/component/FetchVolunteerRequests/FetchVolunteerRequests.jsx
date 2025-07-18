@@ -231,7 +231,7 @@ const VolunteersRequest = ({ role }) => {
                 setLoadingRequest(true);
                 setSelectedEvent(val?.id);
               }}
-              getOptionSelected={(option, value) => option.id === value.id}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
             />
             <Box>
               <SelectBox

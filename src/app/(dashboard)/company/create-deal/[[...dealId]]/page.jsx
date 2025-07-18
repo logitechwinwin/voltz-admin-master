@@ -383,7 +383,6 @@ const CreateDeal = ({ params }) => {
               options={categories}
               getOptionLabel={(option) => option?.label}
               isOptionEqualToValue={(option, value) => option?.id === value?.id}
-              getOptionSelected={(option, value) => option.id === value.id}
               value={
                 formData?.category?.length
                   ? formData?.category?.map((category) => ({

@@ -179,7 +179,7 @@ const NgoEvents = () => {
         </Typography>
       </Stack>
 
-      <Grid Grid container spacing={2} marginBottom={2}>
+      <Grid container spacing={2} marginBottom={2}>
         <Grid item xs={12} sm={6} md={3}>
           <TextField
             label="Search Campaign"

@@ -43,8 +43,8 @@ const UITable = ({
                         }}
                     >
                         <TableRow>
-                            {headings?.map((item) => (
-                                <TableCell sx={{ color: "white" }}>{item}</TableCell>
+                            {headings?.map((item, index) => (
+                                <TableCell key={index} sx={{ color: "white" }}>{item}</TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
