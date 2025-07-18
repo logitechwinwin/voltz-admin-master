@@ -6,7 +6,11 @@ import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocom
 function MapAutocomplete({ mapZoom = 16, coords, radius = 0, handleChange, height, label }) {
   const containerStyle = { width: "100%", height: height || "400px" };
   const defaultCenter = { lat: -3.745, lng: -38.523 };
-  const { isLoaded } = useJsApiLoader({ id: "google-map-script", googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY });
+  const { isLoaded } = useJsApiLoader({ 
+    id: "google-map-script", 
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+    libraries: ["places"]
+  });
   const [center, setCenter] = useState(coords || defaultCenter);
   const [place, setPlace] = useState(null)
   const [autocompleteValue, setAutocompleteValue] = useState("");

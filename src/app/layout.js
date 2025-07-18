@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <Script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA89-etKIfiHgLKrSEuwCBTGKimI6a-_aQ&libraries=places"></Script>
+
       <AppRouterCacheProvider>
         <MuiThemeProvider>
           <LocalizationProvider dateAdapter={AdapterMoment}>
