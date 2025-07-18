@@ -1,5 +1,5 @@
 import { SCREEN_TYPE } from "@/global";
-import { messaging } from "@/lib/firebaseConfig";
+import { getMessagingInstance } from "@/lib/firebaseConfig";
 import { Close } from "@mui/icons-material";
 import { Avatar, Card, IconButton, ListItem, ListItemAvatar, ListItemButton, ListItemText } from "@mui/material";
 import { onMessage } from "firebase/messaging";
@@ -24,52 +24,58 @@ const useHandleForeGroundNotifications = () => {
   };
 
   useEffect(() => {
-    if (messaging) {
-      onMessage(messaging, (payload) => {
-        console.log("🚀 ~ onMessage ~ payload:", payload);
-        const { title, body, icon, badge, image, notificationType, chatId, communityId } = payload.data;
-        const notificationOptions = {
-          body,
-          icon: icon || "../src/assets/images/Logo.svg",
-          badge: badge || "../src/assets/images/Logo.svg",
-          data: { notificationType, chatId, communityId },
-        };
+    const setupMessaging = async () => {
+      const messaging = await getMessagingInstance();
+      
+      if (messaging) {
+        onMessage(messaging, (payload) => {
+          console.log("🚀 ~ onMessage ~ payload:", payload);
+          const { title, body, icon, badge, image, notificationType, chatId, communityId } = payload.data;
+          const notificationOptions = {
+            body,
+            icon: icon || "../src/assets/images/Logo.svg",
+            badge: badge || "../src/assets/images/Logo.svg",
+            data: { notificationType, chatId, communityId },
+          };
 
-        enqueueSnackbar({
-          variant: "info", // You can use 'success', 'error', 'warning', or 'info'
-          autoHideDuration: 5000,
-          content: (key) => (
-            <Card sx={{ borderRadius: "10px", maxWidth: "400px", borderLeft: 5, borderColor: (theme) => theme.palette.primary.main }} elevation={5}>
-              <ListItem
-                disablePadding
-                secondaryAction={
-                  <IconButton edge="end" aria-label="delete" onClick={() => closeSnackbar(key)}>
-                    <Close />
-                  </IconButton>
-                }
-              >
-                <ListItemButton borderRadius="10px" onClick={() => handleNavigation(notificationType, chatId, communityId, key)}>
-                  <ListItemAvatar>
-                    <Avatar src={notificationOptions.icon} alt="" />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={title}
-                    secondary={notificationOptions.body}
-                    secondaryTypographyProps={{
-                      noWrap: true,
-                    }}
-                    primaryTypographyProps={{
-                      noWrap: true,
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            </Card>
-          ),
+          enqueueSnackbar({
+            variant: "info", // You can use 'success', 'error', 'warning', or 'info'
+            autoHideDuration: 5000,
+            content: (key) => (
+              <Card sx={{ borderRadius: "10px", maxWidth: "400px", borderLeft: 5, borderColor: (theme) => theme.palette.primary.main }} elevation={5}>
+                <ListItem
+                  disablePadding
+                  secondaryAction={
+                    <IconButton edge="end" aria-label="delete" onClick={() => closeSnackbar(key)}>
+                      <Close />
+                    </IconButton>
+                  }
+                >
+                  <ListItemButton borderRadius="10px" onClick={() => handleNavigation(notificationType, chatId, communityId, key)}>
+                    <ListItemAvatar>
+                      <Avatar src={notificationOptions.icon} alt="" />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={title}
+                      secondary={notificationOptions.body}
+                      secondaryTypographyProps={{
+                        noWrap: true,
+                      }}
+                      primaryTypographyProps={{
+                        noWrap: true,
+                      }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              </Card>
+            ),
+          });
         });
-      });
-    }
-  }, [path, messaging]); // Add path as a dependency to ensure it always has the latest value
+      }
+    };
+
+    setupMessaging();
+  }, [path]); // Remove messaging from dependencies since we're getting it dynamically
 };
 
 export default useHandleForeGroundNotifications;

@@ -17,19 +17,38 @@ const firebaseConfig = {
 // Initialize Firebase app
 export const app = initializeApp(firebaseConfig);
 
-let messaging;
+// Lazy initialization of messaging
+let messagingInstance = null;
 
-if (typeof window !== "undefined") {
-  // Check if Firebase Messaging is supported in the browser
-  isSupported().then((supported) => {
+export const getMessagingInstance = async () => {
+  if (messagingInstance) {
+    return messagingInstance;
+  }
+
+  // Only initialize on client side
+  if (typeof window === "undefined") {
+    // Suppress console warning in development for cleaner logs
+    if (process.env.NODE_ENV === "development") {
+      // This is expected during SSR, no need to log it
+      return null;
+    }
+    return null;
+  }
+
+  try {
+    const supported = await isSupported();
     if (supported) {
-      messaging = getMessaging(app);
+      messagingInstance = getMessaging(app);
+      return messagingInstance;
     } else {
       console.warn("Firebase Messaging is not supported in this browser.");
+      return null;
     }
-  });
-} else {
-  console.warn("Firebase Messaging is not supported in server-side rendering.");
-}
+  } catch (error) {
+    console.warn("Failed to initialize Firebase Messaging:", error);
+    return null;
+  }
+};
 
-export { messaging };
+// For backward compatibility - returns null during SSR
+export const messaging = null;

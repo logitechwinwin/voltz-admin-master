@@ -3,7 +3,7 @@
 
 import { ApiManager } from "@/helpers";
 import { getTokenFromFCM } from "@/lib/fcmHelpers";
-import { messaging } from "@/lib/firebaseConfig";
+import { getMessagingInstance } from "@/lib/firebaseConfig";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -14,6 +14,12 @@ const useFCM = () => {
   useEffect(() => {
     const handleFCMToken = async () => {
       try {
+        const messaging = await getMessagingInstance();
+        if (!messaging) {
+          console.warn("Firebase Messaging not available");
+          return;
+        }
+
         const alreadyHaveToken = localStorage.getItem("device_token");
         const { token, shouldUpdateToken } = await getTokenFromFCM(alreadyHaveToken, messaging);
 
@@ -53,7 +59,7 @@ const useFCM = () => {
       }
     };
 
-    if (messaging && isLogged && user) handleFCMToken();
+    if (isLogged && user) handleFCMToken();
   }, [isLogged, user]);
 };
 
