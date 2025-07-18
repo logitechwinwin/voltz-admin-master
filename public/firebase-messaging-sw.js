@@ -62,10 +62,9 @@ self.addEventListener("push", (e) => {
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  // console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  console.log('[Firebase SW] Received background message:', payload.data);
 
   const { title, body, icon, badge, image, ...restPayload } = payload.data;
-  console.log("🚀 ~ messaging.onBackgroundMessage ~ payload.data:", payload.data);
 
   const notificationOptions = {
     body,

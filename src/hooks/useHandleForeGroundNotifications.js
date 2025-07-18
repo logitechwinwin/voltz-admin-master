@@ -29,7 +29,7 @@ const useHandleForeGroundNotifications = () => {
       
       if (messaging) {
         onMessage(messaging, (payload) => {
-          console.log("🚀 ~ onMessage ~ payload:", payload);
+          console.log('[Firebase] Received foreground message:', payload.data);
           const { title, body, icon, badge, image, notificationType, chatId, communityId } = payload.data;
           const notificationOptions = {
             body,
